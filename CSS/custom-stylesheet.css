@@ -1,0 +1,20 @@
+/*map's size*/
+
+
+.countries {
+    stroke: #fff;
+    stroke-width:1px;
+}
+
+.legendLinear text {
+    font-size: 9px;
+}
+
+.container.custom-container {
+    padding: 0px 0px;
+    margin: 0px 10px 0px 100px;
+}
+
+.red{
+    fill:red !important;
+}

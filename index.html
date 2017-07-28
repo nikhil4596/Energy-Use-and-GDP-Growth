@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--d3 geomap to draw choropleth map -->
+    <link href="vendor/d3.geomap-1.0.2/css/d3.geomap.css" rel="stylesheet">
+
+    <!--dygraph libraries for line graphs-->
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/custom-stylesheet.css">
+    <link rel="stylesheet" href="jQuery/qunit.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- ******* bootstrap CDN *********-->
+    <!-- Latest compiled and minified CSS -->
+    <!--<script src="jQuery/jquery.min.js"></script>-->
+    <!--<script src="jQuery/qunit.js"></script>-->
+    <!-- Optional theme -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="vendor/d3.geomap-1.0.2/vendor/d3.geomap.dependencies.min.js"></script>
+    <script src="vendor/d3.geomap-1.0.2/js/d3.geomap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!--D3 library for charts and graphs-->
+    <!--<script src="https:/d3js.org/d3.v3.min.js"></script>-->
+    <script type="text/javascript" src="https:/d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+
+    <title>Energy Use and Economic Growth</title>
+</head>
+<body>
+<style>
+
+    .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1px;
+    }
+    .row {
+        height: 20%;
+    }
+    /*.navbar .navbar-nav {*/
+        /*display: inline-block;*/
+        /*float: none;*/
+        /*vertical-align: top;*/
+    /*}*/
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+</style>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <!--<div class="container">-->
+            <!--<ul class="nav navbar-nav mr auto" style="float: none ; vertical-align: top;>-->
+                <!--<a class="navbar-brand btn-md">Renewable Energy</a>-->
+            <a class="navbar-brand"  style="text-align:center; margin-right: 50px; float: left; font-size: x-large">Energy Use and GDP Growth</a>
+
+            <!--</ul>-->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav mr-auto" style="display: inline-block; float: left; vertical-align: top;">
+                    <li class="active" id="alternativeEnergy"><a class="btn btn-inverse btn-md navbar-btn" style="margin-right: 40px">Alternative and Nuclear Energy</a></li>
+                    <li id="renewableEnergy"><a class="btn btn-inverse btn-md navbar-btn" style="margin-right: 40px">Renewable Energy</a></li>
+                    <li id="gdpGrowth"><a class="btn btn-inverse btn-md navbar-btn" style="margin-right: 40px">GDP Growth</a></li>
+                </ul>
+            </div>
+        <!--</div>-->
+
+    </nav>
+    <div class="container-fluid" id="main">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div id="barCH" class="col-lg-6">
+                <!--The Bar Chart-->
+                <div style="width:400px; height:400px;"> <svg width="700" height="400"></svg> </div>
+            </div>
+            <div class="col-lg-6">
+                <!--The Line Graph-->
+                <div id="linechart" style="width:50%; height:250px;"><svg width="700" height="350"></svg></div>
+                <div id="options"></div>
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-lg-8 col-lg-offset-2">-->
+        <br>
+        <input type="range" min="1990" max="2014" value="1990" step="1" style="width: 60%; margin-left: 20%" id="slider" />
+        <p style="text-align:center" id="value"> Year Slider </p>
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-4">
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <h2>About: </h2>
+                    <ul>
+                    <li>
+                        This visualization includes 3 different tools -  a bar chart, a time-series with bubble plot and a choropleth map. The users can use these to explore the relationship between energy use and economic growth of different countries in the world at different times.
+                    </li>
+                    <li>
+                        There are 3 different buttons for each dataset at the top of the page: Alternative & Nuclear Energy, Renewable Energy and GDP Growth. After the user chooses a particular dataset, they can click on a bar within the barchart to select a country to display its time series on the line chart on the right, the size of the bubbles on the lines represents the GDP Growth of that country at that time.
+                    </li>
+                    <li>
+                        Additionally, the choropleth will highlight the selected country or countries from the barchart so that the user can view the geographical comparison. When the user slides the time-slider to a particular year, the barchart will update and display the data to the top 35 countries of that year, the time series will draw the line charts from the year 1990 to the selected year, and the choropleth map will update the color value for all countries for that year.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-7 col-lg-offset-1">
+                <!--choropleth graph-->
+                <div style="height: 600px" id="map"></div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+<script type="application/javascript">
+    $('#main').css("height", $(document).height());
+    $('#main').css("width", $(document).width());
+
+    var selectedCountries = [];
+    var selectedCountryCodes = [];
+    var drawCountryLine;
+</script>
+    <script type="text/javascript" src="JS/barChart.js"></script>
+
+    <script type="text/javascript" src="JS/choropleth.js">
+    </script>
+    <script type="text/javascript" src="JS/linechart.js"></script>
+</body>
+</html>
